@@ -13,8 +13,17 @@ def wait():
 	pass
 
 # функция или код обработки сообщения и сохранение его в глобальную переменную
-def isthenumber():
-	pass
+def isthenumber(a):
+	b = IsPrime(a)
+	# b = True - число простое, b = False - число не простое
+	g = ("Число простое.", "Число составное.")
+	# отправка сообщения в чат
+
+def IsPrime(n):
+    d = 2
+    while n % d != 0:
+        d += 1
+    return d == n
 
 # через api отправляет ключ
 def send_message():
