@@ -1,30 +1,21 @@
-# бот запускается
-# ждёт сообщения
-# code
-# обрабатывает сообщение
-# отправляет ответ
-# перезапускается
+import telebot
+import config
+import random
 
-# API ключ
-API = 
+from telebot import types
 
-# функция ожидания сообщения (делается через api)
-def wait():
-	pass
+bot = telebot.TeleBot(config.TOKEN)
 
-# функция или код обработки сообщения и сохранение его в глобальную переменную
-def isthenumber(a):
-	b = IsPrime(a)
-	# b = True - число простое, b = False - число не простое
-	g = ("Число простое.", "Число составное.")
-	# отправка сообщения в чат
+@bot.message_handler(content_types=['text'])
+def adlasld(message):
+	bot.send_message(message.chat.id, 'Привет!')
 
+# простое число или нет
 def IsPrime(n):
     d = 2
     while n % d != 0:
         d += 1
     return d == n
 
-# через api отправляет ключ
-def send_message():
-	pass
+# RUN
+bot.polling(none_stop=True)
