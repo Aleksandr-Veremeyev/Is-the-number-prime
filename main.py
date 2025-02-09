@@ -7,6 +7,9 @@ from telebot import types
 
 bot = telebot.TeleBot(config.TOKEN)
 
+# consts
+D = 0
+
 @bot.message_handler(commands=['start'])
 def welcome(message):
 
@@ -14,7 +17,8 @@ def welcome(message):
     markup = types.ReplyKeyboardMarkup(resize_keyboard=True)
     item1 = types.KeyboardButton("🎲 Рандомное число")
     item2 = types.KeyboardButton("😊 Как дела?")
-    markup.add(item1, item2)
+    item3 = types.KeyboardButton("🎮 Игра в крестики-нолики")
+    markup.add(item1, item2, item3)
 
     bot.send_message(message.chat.id, "Hello my friend! \nЯ бот, который знает какие числа простые, а какие нет. \nНапиши любое число, и я скажу тебе: простое оно или нет!".format(message.from_user, bot.get_me()), parse_mode='html', reply_markup=markup)
     # (message.chat.id, 'Привет!')
@@ -39,14 +43,14 @@ def lalala(message):
             # отправка сообщения
             mess = isprime(number)
             if mess:
-                message_end = 'число ' + str(number) + ' простое'
+                message_end = 'Число ' + str(number) + ' простое!'
                 # число X простое
                 # число X составное
                 # это число -простое -составное
                 # это число составное, так как 2 * 3 = 6.
                 #  
-            elif mess == False:
-                message_end = 'число ' + str(number) + ' составное'
+            else:
+                message_end = 'Число ' + str(number) + ' составное!'
                 # из функции isprime найти 
     elif message.chat.type == 'private':
         if message.text == '🎲 Рандомное число':
@@ -63,12 +67,26 @@ def lalala(message):
         else:
             pass
             # bot.send_message(message.chat.id, 'Я не знаю что ответить')
-        # если число не указано
-        # message_end = "Вы не выбрали никакого числа!"
+            # если число не указано
+            # message_end = "Вы не выбрали никакого числа!"
+    # ================
+    if (message.text == "Как дела?") or (message.text == "как дела?") or (message.text == "Как дела") or (message.text == "какдела") or (message.text == "какдела?"):
+        d = ["Хорошо", "нормально", "Лучше некуда.", "неплохо", "Здорово!", "окей", "замечательно", "прекрасно"]
+        # процесс изменения D
+        message_end = d[random.randint(0, 8)]
+        # D = 1
+        # pass
+    
+    if (message.text == "пока") or (message.text == "Пока") or (message.text == "пока.") or (message.text == "Пока."):
+        message_end = "Пока!"
 
-    # отправка ответа
+    if (message.text == "привет") or (message.text == "Привет"):
+        message_end = "Привет"
+
+    
+
+    # отправка ответа, end message
     if message_end != '':
-        # end message
         bot.send_message(message.chat.id, message_end)
 
 # функция определения простого числа, методом while.
